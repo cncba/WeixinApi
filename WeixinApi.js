@@ -12,12 +12,12 @@
  * 9、关闭公众平台Web页面
  * 10、判断当前网页是否在微信内置浏览器中打开
  * 11、增加打开扫描二维码
- * 12、支持WeixinApi的错误监控
+ * 12、支持WgateWeixinApi的错误监控
  * 13、检测应用程序是否已经安装（需要官方开通权限）
  *
  * @author zhaoxianlie(http://www.baidufe.com)
  */
-var WeixinApi = (function () {
+var WgateWeixinApi = (function () {
 
     "use strict";
 
@@ -380,7 +380,7 @@ var WeixinApi = (function () {
      * network_type:wwan     2g或者3g
      *
      * 使用方法：
-     * WeixinApi.getNetworkType(function(networkType){
+     * WgateWeixinApi.getNetworkType(function(networkType){
      *
      * });
      *
@@ -420,8 +420,8 @@ var WeixinApi = (function () {
 
     /**
      * 当页面加载完毕后执行，使用方法：
-     * WeixinApi.ready(function(Api){
-     *     // 从这里只用Api即是WeixinApi
+     * WgateWeixinApi.ready(function(Api){
+     *     // 从这里只用Api即是WgateWeixinApi
      * });
      * @param readyCallback
      */
@@ -475,13 +475,13 @@ var WeixinApi = (function () {
     }
 
 
-	/**
+  /**
      * 检测应用程序是否已安装 
-     * 		by mingcheng 2014-10-17
+     *    by mingcheng 2014-10-17
      *
-     * @param       {Object}    data       	    应用程序的信息
+     * @param       {Object}    data            应用程序的信息
      * @p-config    {String}    packageUrl      应用注册的自定义前缀，如 xxx:// 就取 xxx
-     * @p-config    {String}    packageName	    应用的包名
+     * @p-config    {String}    packageName     应用的包名
      *
      * @param       {Object}    callbacks       相关回调方法
      * @p-config    {Function}  fail(resp)      失败
