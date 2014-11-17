@@ -243,14 +243,4 @@ WeixinApi.enableDebugMode(function(errObj){
 ### 4、我怎样动态修改分享的信息：wxData
 用到Api提供的`async:true`配置，具体可阅读[这里的使用介绍](http://www.baidufe.com/item/f07a3be0b23b4c9606bb.html)
 
-## 其他
-### 1、更多互动
-详细的使用场景，还可以到这里获取：http://www.baidufe.com/item/f07a3be0b23b4c9606bb.html
 
-注意：这只是发烧版本，非微信官方出品！有问题可大家一起来讨论，我很乐意与大家一起来完善这个API。
-
-### 2、招聘广告
-鄙人目前在美丽说商业产品前端团队，队里缺靠谱的FE，欢迎推荐或自荐：http://www.baidufe.com/item/25ea3376a893619eea8c.html
-
-### 3、如果你觉得这个Api对你有用：
-![alien-alipay-qrcode-256.png](http://www.baidufe.com/upload/images/2014-11-03_21-19-40_5.png)
