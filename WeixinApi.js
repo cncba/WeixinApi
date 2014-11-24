@@ -45,7 +45,7 @@ var WgateWeixinApi = (function () {
             WeixinJSBridge.invoke('shareTimeline', {
                 "appid":theData.appId ? theData.appId : '',
                 "img_url":theData.imgUrl,
-                "link":theData.link,
+                "link":wgateShareUrl(theData.link),
                 "desc":theData.title,
                 "title":theData.desc, // 注意这里要分享出去的内容是desc
                 "img_width":"640",
@@ -115,7 +115,7 @@ var WgateWeixinApi = (function () {
             WeixinJSBridge.invoke('sendAppMessage', {
                 "appid":theData.appId ? theData.appId : '',
                 "img_url":theData.imgUrl,
-                "link":theData.link,
+                "link":wgateShareUrl(theData.link),
                 "desc":theData.desc,
                 "title":theData.title,
                 "img_width":"640",
@@ -257,7 +257,7 @@ var WgateWeixinApi = (function () {
             general.generalShare({
                 "appid":theData.appId ? theData.appId : '',
                 "img_url":theData.imgUrl,
-                "link":theData.link,
+                "link":wgateShareUrl(theData.link),
                 "desc":theData.desc,
                 "title":theData.title,
                 "img_width":"640",
@@ -540,6 +540,94 @@ var WgateWeixinApi = (function () {
             }
         }
     }
+
+
+    /**
+     * WGate 分享时处理 url 中的 wgateid 参数
+     */
+
+    function wgateShareUrl(url){
+        url = if(params.wgateid) updateURLParameter(url,"wgateid"); // delete current wgateid, avoid share with it
+        if(tyoeof(__wgate_user_id)=="string") updateURLParameter(url,"__share_wgateid"],__wgate_user_id); // set current wgate id to share wgateid
+            else updateURLParameter(url,"__share_wgateid");
+
+        return url;
+    }
+
+
+
+    function updateURLParameter(url, param, paramVal)
+    {
+        var TheAnchor = null;
+        var newAdditionalURL = "";
+        var tempArray = url.split("?");
+        var baseURL = tempArray[0];
+        var additionalURL = tempArray[1];
+        var temp = "";
+
+        if (additionalURL) 
+        {
+            var tmpAnchor = additionalURL.split("#");
+            var TheParams = tmpAnchor[0];
+                TheAnchor = tmpAnchor[1];
+            if(TheAnchor)
+                additionalURL = TheParams;
+
+            tempArray = additionalURL.split("&");
+
+            for (i=0; i<tempArray.length; i++)
+            {
+                if(tempArray[i].split('=')[0] != param)
+                {
+                    newAdditionalURL += temp + tempArray[i];
+                    temp = "&";
+                }
+            }        
+        }
+        else
+        {
+            var tmpAnchor = baseURL.split("#");
+            var TheParams = tmpAnchor[0];
+                TheAnchor  = tmpAnchor[1];
+
+            if(TheParams)
+                baseURL = TheParams;
+        }
+
+        if(TheAnchor)
+            paramVal += "#" + TheAnchor;
+
+        var rows_txt = (paramVal != null) ? (temp + "" + param + "=" + paramVal) : "";
+        return baseURL + "?" + newAdditionalURL + rows_txt;
+    }
+
+
+
+    function parseURL(url) {
+        var parser = document.createElement('a'),
+            searchObject = {},
+            queries, split, i;
+        // Let the browser do the work
+        parser.href = url;
+        // Convert query string to object
+        queries = parser.search.replace(/^\?/, '').split('&');
+        for( i = 0; i < queries.length; i++ ) {
+            split = queries[i].split('=');
+            searchObject[split[0]] = split[1];
+        }
+        return {
+            protocol: parser.protocol,
+            host: parser.host,
+            hostname: parser.hostname,
+            port: parser.port,
+            pathname: parser.pathname,
+            search: parser.search,
+            searchObject: searchObject,
+            hash: parser.hash
+        };
+    }
+
+
 
     return {
         version         :"2.5",
