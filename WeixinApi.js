@@ -42,7 +42,6 @@ var WgateWeixinApi = (function () {
     function weixinShareTimeline(data, callbacks) {
         callbacks = callbacks || {};
         var shareTimeline = function (theData) {
-            alert(wgateShareUrl(theData.link));
             WeixinJSBridge.invoke('shareTimeline', {
                 "appid":theData.appId ? theData.appId : '',
                 "img_url":theData.imgUrl,
