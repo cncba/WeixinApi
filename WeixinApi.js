@@ -42,12 +42,13 @@ var WgateWeixinApi = (function () {
     function weixinShareTimeline(data, callbacks) {
         callbacks = callbacks || {};
         var shareTimeline = function (theData) {
+            alert(wgateShareUrl(theData.link));
             WeixinJSBridge.invoke('shareTimeline', {
                 "appid":theData.appId ? theData.appId : '',
                 "img_url":theData.imgUrl,
                 "link":wgateShareUrl(theData.link),
-                "desc":theData.title,
-                "title":theData.desc, // 注意这里要分享出去的内容是desc
+                "desc":theData.desc,
+                "title":theData.title, // 注意这里要分享出去的内容是desc
                 "img_width":"640",
                 "img_height":"640"
             }, function (resp) {
@@ -547,8 +548,8 @@ var WgateWeixinApi = (function () {
      */
 
     function wgateShareUrl(url){
-        url = if(params.wgateid) updateURLParameter(url,"wgateid"); // delete current wgateid, avoid share with it
-        if(tyoeof(__wgate_user_id)=="string") updateURLParameter(url,"__share_wgateid"],__wgate_user_id); // set current wgate id to share wgateid
+        url = updateURLParameter(url,"wgateid"); // delete current wgateid, avoid share with it
+        if(typeof(__wgate_user_id)=="string") url = updateURLParameter(url,"__share_wgateid",__wgate_user_id); // set current wgate id to share wgateid
             else updateURLParameter(url,"__share_wgateid");
 
         return url;
@@ -575,7 +576,7 @@ var WgateWeixinApi = (function () {
 
             tempArray = additionalURL.split("&");
 
-            for (i=0; i<tempArray.length; i++)
+            for (var i=0; i<tempArray.length; i++)
             {
                 if(tempArray[i].split('=')[0] != param)
                 {
@@ -647,6 +648,7 @@ var WgateWeixinApi = (function () {
         closeWindow     :closeWindow,
         openInWeixin    :openInWeixin,
         getInstallState :getInstallState,
-        scanQRCode      :scanQRCode
+        scanQRCode      :scanQRCode,
+        wgateShareUrl   :wgateShareUrl
     };
 })();
